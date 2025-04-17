@@ -42,11 +42,11 @@ def main():
      
 
     def updateButton(button_state):
-        ref = db.reference('/hardware')
+        ref = db.reference('/monitor')
         ref.update({'button': button_state,})
     
     def updateLight(light):
-        ref = db.reference('/hardware')
+        ref = db.reference('/monitor')
         ref.update({'light_sensor': light})
 
     def listenerDCMotor(event):
@@ -62,9 +62,9 @@ def main():
         print(f"LED = {event.data}")
         
     def start_listeners():
-        db.reference('dcmotor').listen(listenerDCMotor)
-        db.reference('servo').listen(listenerServo)
-        db.reference('led').listen(listenerLED)
+        db.reference('control/dcmotor').listen(listenerDCMotor)
+        db.reference('control/servo').listen(listenerServo)
+        db.reference('control/led').listen(listenerLED)
     
     listener_thread = threading.Thread(target=start_listeners, daemon=True)
     listener_thread.start()
